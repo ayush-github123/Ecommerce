@@ -1,0 +1,131 @@
+{% extends "main.html" %} 
+
+{% load static %}
+
+{% block style %}
+    .brand-promotion {
+        display: flex;
+        gap: 2px;
+        padding: 5px;
+        margin: 50px 20px;
+        justify-content: space-around;
+        border: 2px solid black;
+    }
+
+    .brand-items {
+        height: 20%;
+        width: auto;
+    }
+    
+
+
+    .brand-items img {
+        object-fit: cover;
+        height: 120px;
+    }
+
+    .cards {
+        margin: 40px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: space-between; /* Adjusts the space between cards */
+    }
+
+    .card {
+        flex: 1 1 calc(25% - 10px); /* 4 cards per row (25% width minus the gap) */
+        margin-bottom: 30px; /* Adds space between rows */
+    }
+    .card:hover{
+        transform:scaleY(1.1);
+    }
+    /* Optional: Customize card image size */
+    .card-img-top {
+        object-fit: fit;
+        height: 300px; /* Adjust image height */
+    }
+    .
+{% endblock %}
+
+{% block content %}
+<div class="carousel">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img
+                    src="{% static 'images/mouse1.png' %}"
+                    class="d-block w-100"
+                    alt="..."
+                />
+            </div>
+            <div class="carousel-item">
+                <img
+                    src="{% static 'images/got1.jpeg' %}"
+                    class="d-block w-100"
+                    alt="..."
+                />
+            </div>
+            <div class="carousel-item">
+                <img
+                    src="{% static 'images/got2.jpeg' %}"
+                    class="d-block w-100"
+                    alt="..."
+                />
+            </div>
+        </div>
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="brand-promotion">
+    <div class="brand-items">
+        <img src="{% static 'images/nike.png' %}" alt="">
+    </div>
+    <div class="brand-items">
+        <img src="{% static 'images/adidas.png' %}" alt="">
+    </div>
+    <div class="brand-items">
+        <img src="{% static 'images/jamesbond.png' %}" alt="">
+    </div>
+</div>
+
+<div class="cards">
+    {% if products %}
+        {% for product in products %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                    <div style="display: flex; justify-content: space-between;">
+                        {% comment %} <a href="{% url 'cart:add-to-cart' product.id %}" class="btn btn-primary">Add to Cart</a> {% endcomment %}
+                        <a href="{% url 'cart:add-to-cart' product.id %}"><button type="button" class="btn btn-lg btn-primary" data-bs-toggle="popover" data-bs-title="Added to Cart" data-bs-content="he;;lp">Add to cart</button></a>
+                        <!-- <p class="card-price" style="text-decoration:dashed">₹{{ product.price }}</p> -->
+                        <p class="card-price" style="font-weight: 700 !important;" >₹{{ product.discount_price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No products available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

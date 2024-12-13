@@ -1,0 +1,72 @@
+{% extends "main.html" %}
+
+{% block style %}
+/* Add necessary styles */
+.user-profile {
+    padding: 20px;
+    margin: 50px 20px;
+    border: 2px solid black;
+}
+.user-profile h2 {
+    text-align: center;
+}
+.user-profile .card {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.user-profile .card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user-profile .card h3 {
+    margin: 10px 0;
+}
+{% endblock %}
+
+{% block content %}
+<div class="user-profile">
+    <h2>Your Account</h2>
+    <div class="card">
+        <div class="card-body">
+            <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture">
+            <h3>{{ request.user.profile.name }}</h3>
+            <p><strong>Email:</strong> {{ request.user.profile.email }}</p>
+            <p><strong>Phone Number:</strong> {{ request.user.profile.phone_number }}</p>
+            <p><strong>Address:</strong> {{ request.user.profile.address }}</p>
+        </div>
+    </div>
+    <h2>Your Orders</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- Add order details here -->
+        </div>
+    </div>
+    <h2>Payment Options</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- Add payment details here -->
+        </div>
+    </div>
+    <h2>Your Addresses</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- Add address management here -->
+        </div>
+    </div>
+    <h2>Login & Security</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- Add login & security settings here -->
+        </div>
+    </div>
+    <h2>Contact Us</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- Add contact options here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
